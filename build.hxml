@@ -1,0 +1,15 @@
+--class-path src
+--class-path src/Pages
+--class-path src/HTMXControllers
+--class-path src/Libraries
+
+--dce full
+
+--library hxneko-redis
+--library uuid
+
+--php /var/www/html 
+
+--main Main
+
+--cmd cp -R ./wwwroot /var/www/html/
