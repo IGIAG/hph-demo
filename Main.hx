@@ -12,41 +12,56 @@ class Main {
     //Adding the static files
     router.mapStaticFiles();
 
+    //Adding the API routes
+
     router.addRoute("/dr/hi",function():String{
       return "Hi!";
-    },"user",true);
+    },"user",[new StructureMiddleware()]);
 
-    router.addRoute("/api/create-user",AuthController.CreateUser,"default",true);
+    router.addRoute("/api/create-user",AuthController.CreateUser,"default",[]);
 
-    router.addRoute("/api/login",AuthController.CreateToken,"default",true);
+    router.addRoute("/api/login",AuthController.CreateToken,"default",[]);
 
-    router.addRoute("/api/login-r",AuthController.CreateTokenRedirect,"default",true);
+    router.addRoute("/api/login-r",AuthController.CreateTokenRedirect,"default",[]);
+    
+    router.addRoute("/api/logout",AuthController.RemoveAuth,"default",[]);
+
+    router.addRoute("/api/routes",router.getRouteList,"default",[]);
     
 
     //Adding the ssr pages
-    router.addRoute("/",IndexPage.Index,"default",true);
+    router.addRoute("/",IndexPage.Index,"default",[new StructureMiddleware()]);
 
-    router.addRoute("/api/logout",AuthController.RemoveAuth,"default",true);
-
-    router.addRoute("/api/routes",router.getRouteList,"default",true);
 
     //Adding the dynamicly loadable components
 
-    router.addRoute("/components/login",LoginComponent.Index,"default",false);
+    router.addRoute("/components/login",LoginComponent.Index,"default",[]);
 
-    router.addRoute("/components/register",RegisterComponent.Index,"default",false);
+    router.addRoute("/components/register",RegisterComponent.Index,"default",[]);
 
 
 
     
 
     var route:RouteDefinition = router.getRoute(Web.getURI(),["default"]);
-    if(route.ApplyHtml){
-      Lib.println(MainTemplate.GenerateReturnHTML(route.Function()));
+    
+    var routeOutput:String = route.Function();
+
+    
+    if(route.MiddleWares == null){
+      Lib.println(routeOutput);
+      return;
     }
-    else {
-      Lib.println(route.Function());
+
+    for(mw in route.MiddleWares){
+      routeOutput = mw.Output(routeOutput,[]);
     }
+
+
+
+
+    Lib.println(routeOutput);
+    
 
   }
 }

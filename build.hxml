@@ -3,6 +3,7 @@
 --class-path src/HTMXControllers
 --class-path src/Libraries
 --class-path src/Components
+--class-path src/Middlewares
 
 --dce full
 
@@ -10,6 +11,8 @@
 --library uuid
 
 --php /var/www/html 
+
+
 
 --main Main
 

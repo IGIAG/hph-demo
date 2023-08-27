@@ -1,7 +1,7 @@
-import NavigationComponent;
+import IMiddleware;
 
-class MainTemplate {
-    public static function GenerateReturnHTML(content:String):String {
+class StructureMiddleware implements IMiddleware{
+    public function Output(input:String,params:Array<String>):String {
         var head:String = '
         <script src="https://unpkg.com/htmx.org@1.9.5"></script>
         <link href="https://fonts.cdnfonts.com/css/intelone-display" rel="stylesheet">
@@ -17,9 +17,11 @@ class MainTemplate {
         <body>
             ${NavigationComponent.Index()}
             <div class="page">
-            $content
+            $input
             </div>
         </body>
         </html>';
+        
     }
+    public function new(){}
 }

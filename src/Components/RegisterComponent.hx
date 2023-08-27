@@ -14,7 +14,7 @@ class RegisterComponent {
 
 
         return '<div class="registerComponent"><h1>Register component</h1>
-        <form hx-post="/api/create-user" hx-target="#loginspace" hx-swap="outerHTML">
+        <form hx-post="/api/create-user" hx-target=".page" hx-swap="innerHTML">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <br>

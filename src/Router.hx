@@ -7,8 +7,8 @@ import sys.io.File;
 
 class Router {
     private var routes: Map<String, RouteDefinition> = [];
-    public function addRoute(route:String,work:Void -> Dynamic,permission:String,applyHtml:Bool){
-        routes.set(route,new RouteDefinition(work,permission,applyHtml));
+    public function addRoute(route:String,work:Void -> Dynamic,permission:String,middlewares:Array<IMiddleware>){
+        routes.set(route,new RouteDefinition(work,permission,middlewares));
     }
     public function getRoute(route:String,permissions:Array<String>):RouteDefinition{
         var routeDefinition:RouteDefinition = routes.get(route);
@@ -18,7 +18,7 @@ class Router {
         }
         return new RouteDefinition(function():String {
             return "Forbidden!";
-        },"default",true) ;
+        },"default",[]) ;
         
     }
     public function getRouteList():String{
@@ -50,7 +50,7 @@ class Router {
                     trace("Error reading file: " + e);
                     return null;
                 }
-            },"default",applyHtml);
+            },"default",[]);
         }
     }
 
@@ -82,11 +82,11 @@ class RouteDefinition {
 
     public var Permission:String;
 
-    public var ApplyHtml:Bool;
+    public var MiddleWares:Array<IMiddleware>;
 
-    public function new(Function:Void -> Dynamic,Permission:String,ApplyHtml:Bool) {
+    public function new(Function:Void -> Dynamic,Permission:String,MiddleWares:Array<IMiddleware>) {
         this.Function = Function;
         this.Permission = Permission;
-        this.ApplyHtml = ApplyHtml;
+        this.MiddleWares = MiddleWares;
     }
 }
