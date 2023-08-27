@@ -2,7 +2,7 @@ import Router;
 import php.Lib;
 import php.Web;
 import IndexPage;
-import LoginPage;
+
 
 class Main {
   static function main() {
@@ -14,25 +14,39 @@ class Main {
 
     router.addRoute("/dr/hi",function():String{
       return "Hi!";
-    },"user");
+    },"user",true);
 
-    router.addRoute("/api/create-user",AuthController.CreateUser,"default");
+    router.addRoute("/api/create-user",AuthController.CreateUser,"default",true);
 
-    router.addRoute("/api/login",AuthController.CreateToken,"default");
+    router.addRoute("/api/login",AuthController.CreateToken,"default",true);
+
+    router.addRoute("/api/login-r",AuthController.CreateTokenRedirect,"default",true);
     
 
     //Adding the ssr pages
-    router.addRoute("/",IndexPage.Index,"default");
-    router.addRoute("/login",LoginPage.Index,"default");
+    router.addRoute("/",IndexPage.Index,"default",true);
 
-    router.addRoute("/api/logout",AuthController.RemoveAuth,"default");
+    router.addRoute("/api/logout",AuthController.RemoveAuth,"default",true);
 
-    router.addRoute("/api/routes",router.getRouteList,"default");
+    router.addRoute("/api/routes",router.getRouteList,"default",true);
 
-    var head:String = '<script src="https://unpkg.com/htmx.org@1.9.5"></script>';
+    //Adding the dynamicly loadable components
+
+    router.addRoute("/components/login",LoginComponent.Index,"default",false);
+
+    router.addRoute("/components/register",RegisterComponent.Index,"default",false);
 
 
-    Lib.println('<html><head>$head</head><body>${router.getRoute(Web.getURI(),["default"])()}</body></html>');
+
+    
+
+    var route:RouteDefinition = router.getRoute(Web.getURI(),["default"]);
+    if(route.ApplyHtml){
+      Lib.println(MainTemplate.GenerateReturnHTML(route.Function()));
+    }
+    else {
+      Lib.println(route.Function());
+    }
 
   }
 }

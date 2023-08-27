@@ -87,6 +87,40 @@ class AuthLib {
         if(!(db.get('user.${checkAuthForm.username}.token') == checkAuthForm.token && checkAuthForm.token != null)){
             return new GenericResponse("Unauthorized!",false);
         }
+
+        if(permission == "user"){
+            return new GenericResponse("Authorized!",true);
+        }
+
+        var permissions:Array<String> = db.get('user.${checkAuthForm.username}.permissions').split(',');
+
+        var containsString:Bool = false;
+
+        for (px in permissions) {
+            if (px == permission) {
+                containsString = true;
+                break;
+            }
+        }
+
+        if(containsString){
+            return new GenericResponse("Authorized!",true);
+        }
+        return new GenericResponse("Unauthorized!",false);
+        
+    }
+    public static function CheckAuthAuto(permission:String):GenericResponse{
+        var checkAuthForm = new CheckAuthForm(Web.getCookies()["User"],Web.getCookies()["Auth"]);
+
+        if(permission == "default"){
+            return new GenericResponse("Authorized!",true);
+        }
+
+        var db = new Redis("localhost");  
+
+        if(!(db.get('user.${checkAuthForm.username}.token') == checkAuthForm.token && checkAuthForm.token != null)){
+            return new GenericResponse("Unauthorized!",false);
+        }
         return new GenericResponse("Authorized!",true);
     }
 }

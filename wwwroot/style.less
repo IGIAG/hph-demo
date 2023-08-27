@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'IntelOne Mono';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/intelone-mono-font-family-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'IntelOne Mono', sans-serif !important;
+}
+
+.NavigationContainer {
+    width: 100%;
+    height: 80px;
+    background: rgb(120,0,149);
+    background: linear-gradient(45deg, rgba(120,0,149,1) 0%, rgba(76,9,121,1) 46%, rgba(0,142,255,1) 100%);
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    .Logo {
+        font-size: xx-large;
+        padding: 25px;
+    }
+    .Grow {
+        flex-grow: 1;
+    }
+    .Element {
+        font-size: medium;
+        padding: 25px;
+        form{
+            margin: 0;
+            button {
+                background: transparent;
+                border-style: none;
+                color: white;
+                font-family: 'IntelOne Mono';
+                font-size: medium;
+            }
+        }
+    }
+}

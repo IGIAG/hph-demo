@@ -2,6 +2,7 @@
 --class-path src/Pages
 --class-path src/HTMXControllers
 --class-path src/Libraries
+--class-path src/Components
 
 --dce full
 
