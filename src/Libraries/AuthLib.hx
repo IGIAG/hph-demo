@@ -112,8 +112,14 @@ class AuthLib {
     public static function CheckAuthAuto(permission:String):GenericResponse{
         var checkAuthForm = new CheckAuthForm(Web.getCookies()["User"],Web.getCookies()["Auth"]);
 
+        
+
         if(permission == "default"){
             return new GenericResponse("Authorized!",true);
+        }
+
+        if(checkAuthForm.username == null || checkAuthForm.token == null){
+            return new GenericResponse("Unauthorized!",false);
         }
 
         var db = new Redis("localhost");  

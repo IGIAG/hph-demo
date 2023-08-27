@@ -31,7 +31,8 @@ class Main {
 
     //Adding the ssr pages
     router.addRoute("/",IndexPage.Index,"default",[new StructureMiddleware()]);
-
+    router.addRoute("/about",About.Index,"default",[new StructureMiddleware()]);
+    router.addRoute("/portfolio",Portfolio.Index,"default",[new StructureMiddleware()]);
 
     //Adding the dynamicly loadable components
 

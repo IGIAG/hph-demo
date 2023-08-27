@@ -4,18 +4,18 @@ class NavigationComponent {
     public static function Index():String {
         return '
         <div class="NavigationContainer">
-            <div class="Logo">Krzysiek</div>
+            <a class="Logo" href="/" >Krzysiek</a>
             <div class="Grow"></div>
             ${ApplyAccounting()}
-            <div class="Element">Nav3</div>
-            <div class="Element">Nav4</div>
+            <a class="Element" href="/about">O tej stronie</a>
+            <a class="Element" href="/portfolio">Portfolio</a>
         </div>
         ';
     }
 
     private static function ApplyAccounting():String {
         if(AuthLib.CheckAuthAuto("user").isSuccess){
-            return '<div class="Element">Welcome ${Web.getCookies()["User"]}</div>
+            return '<div class="Element">Witaj ${Web.getCookies()["User"]}</div>
             <div class="Element"><form method="post" action="/api/logout"><button type="submit">Wyloguj się</button></form></div>';
         }
         else {
