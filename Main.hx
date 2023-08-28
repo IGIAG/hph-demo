@@ -2,11 +2,13 @@ import Router;
 import php.Lib;
 import php.Web;
 import IndexPage;
-
+import VariablesMiddleware;
 
 class Main {
   static function main() {
+
     var router:Router = new Router();
+
 
 
     //Adding the static files
@@ -31,7 +33,7 @@ class Main {
 
     //Adding the ssr pages
     router.addRoute("/",IndexPage.Index,"default",[new StructureMiddleware()]);
-    router.addRoute("/about",About.Index,"default",[new StructureMiddleware()]);
+    router.addRoute("/about",About.Index,"default",[new StructureMiddleware(),new VariablesMiddleware()]);
     router.addRoute("/portfolio",Portfolio.Index,"default",[new StructureMiddleware()]);
 
     //Adding the dynamicly loadable components
@@ -58,6 +60,7 @@ class Main {
       routeOutput = mw.Output(routeOutput,[]);
     }
 
+    
 
 
 

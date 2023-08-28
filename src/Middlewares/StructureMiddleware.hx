@@ -18,10 +18,13 @@ class StructureMiddleware implements IMiddleware{
             ${NavigationComponent.Index()}
             <div class="page">
             $input
+            <div class="overlay"></div>
             </div>
         </body>
         </html>';
         
     }
     public function new(){}
+
+	
 }

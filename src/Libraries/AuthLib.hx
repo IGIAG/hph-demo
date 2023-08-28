@@ -129,4 +129,15 @@ class AuthLib {
         }
         return new GenericResponse("Authorized!",true);
     }
+
+
+    public static function CountAccounts():Int{
+        var db = new Redis("localhost");  
+
+        var keys:Array<String> = db.keys("user.*.password");
+
+        return keys.length;
+
+
+    }
 }

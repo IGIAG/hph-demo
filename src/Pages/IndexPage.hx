@@ -6,11 +6,34 @@ import LoginComponent;
 class IndexPage {
     public static function Index():String{
         return '
-        <div id="codepage"><h2>O mnie:</h2><p>Jestem Krzysiek, uczęszczam do liceum informatycznego. Moja fascynacja technologią przerodziła się w pasję tworzenia profesjonalnych stron internetowych.</p></div>
-        <div id="codepage"><h2>Pasja i Profesjonalizm:</h2><p>Tworzenie stron to dla mnie nie tylko sposób na zarobek, to przede wszystkim to, co kocham robić. Dzięki umiejętnościom i doświadczeniu dostarczam responsywne strony o doskonałej funkcjonalności.</p></div>
-        <div id="codepage"><h2>Najnowsze Trendy:</h2><p>Nieustannie się rozwijam, aby być na bieżąco z trendami w projektowaniu i programowaniu webowym. Moje projekty są zawsze dopasowane do indywidualnych potrzeb klientów.</p></div>
-        <div id="codepage"><h2>Gotowy na Współpracę:</h2><p>Potrzebujesz nowej strony lub poprawy istniejącej? Jestem tu po to, aby pomóc. Skontaktuj się ze mną, a razem stworzymy funkcjonalną i atrakcyjną stronę internetową.</p></div>
-        <div id="codepage"><h2>Dziękuję za Odwiedziny:</h2><p>Dziękuję, że znalazłeś/aś chwilę, aby odwiedzić moją stronę. Zapraszam do odkrywania świat nowoczesnych stron razem ze mną!</p></div>
+        <div id="gridFullPage">
+            <div id="introGridElement">
+                <h2>Cześć!</h2>
+                <p>Tu jakieś intro. Bla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla<br/> bla blaBla bla blaBla bla blaBla bla blaBla bla bla</p>
+                <p>Tu coś o wykształceniu. Bla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla<br/> bla blaBla bla blaBla bla blaBla bla blaBla bla bla</p>
+                <p>To poprzedznie projekty. Bla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla<br/> bla blaBla bla blaBla bla blaBla bla blaBla bla bla</p>
+                </div>
+            <div id="statusGridElement">
+                <h2>Statystyki strony</h2>
+                <p>Wyświetlenia: 2137</p>
+                <p>Konta: 38</p>
+                <p>Dni online: 40</p>
+            </div>
+            <div id="pidGridElement">
+                <h2>O mnie:</h2>
+                <p>Najlepszy w języku: C#</p>
+                <p>Inne języki:</p>
+                <ul>
+                <li>Java</li>
+                <li>Javascript</li>
+                <li>Typescript</li>
+                <li>Python</li>
+                <li>HTML/CSS</li>
+                <li>Haxe</li>
+                </ul>
+            </div>
+            
+        </div>
         ';
     }
     /*private static function LoginField():String {
