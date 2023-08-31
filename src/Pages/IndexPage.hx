@@ -1,30 +1,42 @@
 import AuthLib.CheckAuthForm;
 import php.Web;
 import AuthLib;
+import LoginComponent;
 
 class IndexPage {
     public static function Index():String{
-        return '<h1>This is a prerendered composed index site!</h1>
-        <h2>Why?</h2>
-        <h3>Because fuck you thats why</h3>
-        <p>Some demos:</p>
-        <ul>
-        <li>
-        Your IP: ${Web.getClientIP()}
-        </li>
-        <li>
-        Current time: ${Sys.time()}
-        </li>
-        ${LoginField()}
-        <li>
-        <p hx-get="/api/routes" hx-swap="outerHTML">Click me to see the available routes</p>
-        </li>
-
-        </ul>
-
+        return '
+        <div id="gridFullPage">
+            <div id="introGridElement">
+                <h2>Cześć!</h2>
+                <p>Tu jakieś intro. Bla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla<br/> bla blaBla bla blaBla bla blaBla bla blaBla bla bla</p>
+                <p>Tu coś o wykształceniu. Bla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla<br/> bla blaBla bla blaBla bla blaBla bla blaBla bla bla</p>
+                <p>To poprzedznie projekty. Bla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla bla blaBla<br/> bla blaBla bla blaBla bla blaBla bla blaBla bla bla</p>
+                </div>
+            <div id="statusGridElement">
+                <h2>Statystyki strony</h2>
+                <p>Wyświetlenia: 2137</p>
+                <p>Konta: 38</p>
+                <p>Dni online: 40</p>
+            </div>
+            <div id="pidGridElement">
+                <h2>O mnie:</h2>
+                <p>Najlepszy w języku: C#</p>
+                <p>Inne języki:</p>
+                <ul>
+                <li>Java</li>
+                <li>Javascript</li>
+                <li>Typescript</li>
+                <li>Python</li>
+                <li>HTML/CSS</li>
+                <li>Haxe</li>
+                </ul>
+            </div>
+            
+        </div>
         ';
     }
-    private static function LoginField():String {
+    /*private static function LoginField():String {
         if(AuthLib.CheckAuth(new CheckAuthForm(Web.getCookies()["User"],Web.getCookies()["Auth"]),"user").isSuccess){
             return '
             <li>
@@ -40,5 +52,5 @@ class IndexPage {
         <a href="/login">Login!</a>
         </li>
         ';
-    }
+    }*/
 }

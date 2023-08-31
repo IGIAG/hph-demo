@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'IntelOne Mono';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/intelone-mono-font-family-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'IntelOne Mono', sans-serif !important;
+    display: flex;
+    flex-flow: column;
+}
+
+.NavigationContainer {
+    width: 100%;
+    height: 80px;
+    background: rgb(120,0,149);
+    background: linear-gradient(45deg, rgba(120,0,149,1) 0%, rgba(76,9,121,1) 46%, rgba(0,142,255,1) 100%);
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    .Logo {
+        font-size: xx-large;
+        font-weight: 700;
+        padding: 25px;
+    }
+    .Grow {
+        flex-grow: 1;
+    }
+    .Element {
+        font-size: medium;
+        padding: 25px;
+        form{
+            margin: 0;
+            button {
+                background: transparent;
+                border-style: none;
+                color: white;
+                font-family: 'IntelOne Mono';
+                font-size: medium;
+            }
+        }
+    }
+    a {
+        color: white;
+        text-decoration: none;
+    }
+}
+
+
+
+.page {
+    background: rgb(64,0,79);
+    background: rgb(64,0,79);background: linear-gradient(45deg, rgba(64,0,79,1) 0%, rgba(20,20,20,1) 56%);
+    flex-grow: 1;
+    color: whitesmoke;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    position: relative;
+    .overlay {
+        position: absolute;
+        //top: 50%;
+        //left: 50%;
+        width:100%;
+        height:100%;
+        background-size: cover;
+        background-position: center;
+        z-index: 0;
+        opacity: 10%;
+        background-image: url('background.png');
+        filter: grayscale(1);
+    }
+}
+
+
+
+#codepage {
+    margin: 40px;
+    width: 80%;
+    background-color: #ffffff0B;
+    padding: 20px;
+    border-radius: 20px;
+    line-height: 30px;
+}
+
+
+#gridFullPage {
+    margin: 40px;
+    padding: 0px;
+    height: 100%;
+    width:90%;
+    display: grid;
+    
+}
+#gridFullPage > * {
+    margin: 20px;
+    border-radius: 5px;
+    background-color: #ffffff0a;
+    h2 {
+        margin: 20px;
+    }
+    p {
+        margin: 20px;
+    }
+}
+
+#introGridElement {
+    grid-column: 1 / 5;
+    grid-row: 1 / 3;
+    //background-color: red;
+}
+#statusGridElement {
+    grid-column: 1 / 5;
+    grid-row: 3;
+    //background-color: green;
+}
+#pidGridElement {
+    grid-column: 5;
+    grid-row: 1/4;
+    //background-color: blue;
+}

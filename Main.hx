@@ -2,37 +2,70 @@ import Router;
 import php.Lib;
 import php.Web;
 import IndexPage;
-import LoginPage;
+import VariablesMiddleware;
 
 class Main {
   static function main() {
+
     var router:Router = new Router();
+
 
 
     //Adding the static files
     router.mapStaticFiles();
 
+    //Adding the API routes
+
     router.addRoute("/dr/hi",function():String{
       return "Hi!";
-    },"user");
+    },"user",[new StructureMiddleware()]);
 
-    router.addRoute("/api/create-user",AuthController.CreateUser,"default");
+    router.addRoute("/api/create-user",AuthController.CreateUser,"default",[]);
 
-    router.addRoute("/api/login",AuthController.CreateToken,"default");
+    router.addRoute("/api/login",AuthController.CreateToken,"default",[]);
+
+    router.addRoute("/api/login-r",AuthController.CreateTokenRedirect,"default",[]);
+    
+    router.addRoute("/api/logout",AuthController.RemoveAuth,"default",[]);
+
+    router.addRoute("/api/routes",router.getRouteList,"default",[]);
     
 
     //Adding the ssr pages
-    router.addRoute("/",IndexPage.Index,"default");
-    router.addRoute("/login",LoginPage.Index,"default");
+    router.addRoute("/",IndexPage.Index,"default",[new StructureMiddleware()]);
+    router.addRoute("/about",About.Index,"default",[new StructureMiddleware(),new VariablesMiddleware()]);
+    router.addRoute("/portfolio",Portfolio.Index,"default",[new StructureMiddleware()]);
 
-    router.addRoute("/api/logout",AuthController.RemoveAuth,"default");
+    //Adding the dynamicly loadable components
 
-    router.addRoute("/api/routes",router.getRouteList,"default");
+    router.addRoute("/components/login",LoginComponent.Index,"default",[]);
 
-    var head:String = '<script src="https://unpkg.com/htmx.org@1.9.5"></script>';
+    router.addRoute("/components/register",RegisterComponent.Index,"default",[]);
 
 
-    Lib.println('<html><head>$head</head><body>${router.getRoute(Web.getURI(),["default"])()}</body></html>');
+
+    
+
+    var route:RouteDefinition = router.getRoute(Web.getURI(),["default"]);
+    
+    var routeOutput:String = route.Function();
+
+    
+    if(route.MiddleWares == null){
+      Lib.println(routeOutput);
+      return;
+    }
+
+    for(mw in route.MiddleWares){
+      routeOutput = mw.Output(routeOutput,[]);
+    }
+
+    
+
+
+
+    Lib.println(routeOutput);
+    
 
   }
 }

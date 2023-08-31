@@ -50,7 +50,28 @@ class AuthController {
 
         return "<h1>Logged in!</h1>";
     }
+    public static function CreateTokenRedirect():String {
+        if(Web.getMethod() != "POST"){Syntax.code("http_response_code(400)");return "Bad request! (Method)";}
+        if(!HttpUtils.VerifyFields(["username","password"])){Syntax.code("http_response_code(400)");return "Bad request! (Parameters! expected:  username, password)";}
 
+        
+
+        var form: Map<String,String> = Web.getMultipart(999);
+
+        var response:GenericResponse = AuthLib.CreateToken(new CreateTokenForm(form["username"],form["password"]));
+
+        if(!response.isSuccess){
+            return '<h1>Failure! Reason: ${response.response}</h1>'; //This might be a vulnerability. Look into it later
+        }
+
+        Web.setCookie("User",form["username"]);
+
+        Web.setCookie("Auth",response.response);
+
+        Web.redirect("/");
+
+        return "<h1>Logged in!</h1>";
+    }
     
 
     

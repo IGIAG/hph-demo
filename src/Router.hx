@@ -4,21 +4,21 @@ import php.Web;
 import sys.io.File;
 
 
+
 class Router {
     private var routes: Map<String, RouteDefinition> = [];
-
-    public function addRoute(route:String,work:Void -> Dynamic,permission:String){
-        routes.set(route,new RouteDefinition(work,permission));
+    public function addRoute(route:String,work:Void -> Dynamic,permission:String,middlewares:Array<IMiddleware>){
+        routes.set(route,new RouteDefinition(work,permission,middlewares));
     }
-    public function getRoute(route:String,permissions:Array<String>):Void -> Dynamic{
+    public function getRoute(route:String,permissions:Array<String>):RouteDefinition{
         var routeDefinition:RouteDefinition = routes.get(route);
 
         if(permissions.contains(routeDefinition.Permission)){
-            return routes.get(route).Function;
+            return routes.get(route);
         }
-        return function():String {
+        return new RouteDefinition(function():String {
             return "Forbidden!";
-        };
+        },"default",[]) ;
         
     }
     public function getRouteList():String{
@@ -38,19 +38,42 @@ class Router {
         var i:Int = 0;
         
         for(file in files){
+            var applyHtml = (getContentType(file) == "text/html");
+
             addRoute('/${file}',function():Dynamic {
                 try {
                     var fileContent:String = File.getContent('./wwwroot/$file');
+                    
+                    Web.setHeader('Content-Type',getContentType(file));
                     return fileContent;
                 } catch (e:Dynamic) {
                     trace("Error reading file: " + e);
                     return null;
                 }
-            },"default");
+            },"default",[]);
         }
     }
 
     public function new(){}
+
+    public static function getContentType(fileName:String):String {
+        var extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        
+        switch (extension.toLowerCase()) {
+            case "html": return "text/html";
+            case "css": return "text/css";
+            case "js": return "application/javascript";
+            case "json": return "application/json";
+            case "png": return "image/png";
+            case "jpg": return "image/jpeg";
+            case "jpeg": return "image/jpeg";
+            case "gif": return "image/gif";
+            case "pdf": return "application/pdf";
+            case "txt": return "text/plain";
+            case "less": return "text/less";
+            default: return "application/octet-stream"; // Default content type
+        }
+    }
 
 }
 
@@ -59,8 +82,11 @@ class RouteDefinition {
 
     public var Permission:String;
 
-    public function new(Function:Void -> Dynamic,Permission:String) {
+    public var MiddleWares:Array<IMiddleware>;
+
+    public function new(Function:Void -> Dynamic,Permission:String,MiddleWares:Array<IMiddleware>) {
         this.Function = Function;
         this.Permission = Permission;
+        this.MiddleWares = MiddleWares;
     }
 }
