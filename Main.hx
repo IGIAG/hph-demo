@@ -59,19 +59,9 @@ class Main {
     
     var routeOutput:String = route.Function();
 
-    
-    if(route.MiddleWares == null){
-      Lib.println(routeOutput);
-      return;
-    }
-
     for(mw in route.MiddleWares){
       routeOutput = mw.Output(routeOutput,[]);
     }
-
-    
-
-
 
     Lib.println(routeOutput);
     

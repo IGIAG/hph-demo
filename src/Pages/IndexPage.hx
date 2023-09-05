@@ -13,10 +13,9 @@ class IndexPage {
                 <p>Something about the framework.</p>
                 </div>
             <div id="statusGridElement">
-                <h2>Statistics (not working yet)</h2>
-                <p>Wyświetlenia: ${GetViews()}</p>
-                <p>Konta: 38</p>
-                <p>Dni online: 40</p>
+                <h2>Statistics</h2>
+                <p>Views: ${GetViews()}</p>
+                <p>Accounts: ${GetAccounts()}</p>
             </div>
             <div id="pidGridElement">
                 <h2>Features:</h2>
@@ -39,6 +38,16 @@ class IndexPage {
         var db = new Redis("localhost");
 
         return db.get("views");
+    }
+
+    private static function GetAccounts(){
+        var db = new Redis("localhost");
+
+        var accounts:Array<String> = db.keys("user.*.password");
+        
+
+
+        return accounts.length;
     }
 
     /*private static function LoginField():String {
