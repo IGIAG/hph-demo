@@ -1,0 +1,106 @@
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [HPH Docs](#hph-docs)
+  - [About](#about)
+  - [Structure](#structure)
+  - [Routing](#routing)
+  - [Components/Pages](#componentspages)
+- [HTMX Controllers](#htmx-controllers)
+- [Middleware](#middleware)
+
+<!-- /code_chunk_output -->
+# HPH Docs
+
+## About
+
+This is the about section
+
+
+## Structure
+
+The HPH framework allows you to solve your problems via various different mechanisms. These are the core features:
+
+- Routing
+- Components
+- Pages
+- HTMX Controllers
+- Middleware
+- Authentication/Authorization
+- Static files
+
+## Routing
+
+The inbuilt HPH router maps url strings to a string returning function. The simplest HPH route looks like this:
+
+```
+class Main {
+  static function main() {
+    //Create a router
+    var router:Router = new Router();
+
+
+    //Adding the route - As described it takes in a string returning function
+    router.addRoute("/hi",function():String{
+      return "Hi!";
+    },"default",[]);
+
+
+    //Executing the route
+    var route:RouteDefinition = router.getRoute(Web.getURI(),["default"]);
+    
+    var routeOutput:String = route.Function();
+
+    //Executing middleware
+    for(mw in route.MiddleWares){
+      routeOutput = mw.Output(routeOutput,[]);
+    }
+    //Returning the output
+    Lib.println(routeOutput);
+  }
+}
+```
+
+
+
+
+## Components/Pages
+
+Pages and components are string returning functions. Pages and components can embed components or pages inside of them by simply calling the function. You can assign a route to the page(or component) need to route it in the `Main.hx` file with `router.addRoute("*ROUTE*",*CLASS*.Index,"*PERMISSION*",[*MIDDLEWARE*]);` 
+
+- **ROUTE** - replace this with the route to associate with the page or component. For example `/` or `/page` or `/api/route`.
+
+- **CLASS** - the name of the class containing the output function.
+
+- **PERMISSION** - this is the required permission tag the user must have to get the route output. An unauthorized user has only the `default` permission. If you want to set an anonymous route just set it to that.
+
+- **MIDDLEWARES** - finaly, this is a list containing all the middlewares for the route. The list can be empty for no middlewares. Middlewares will be explained later.
+
+# HTMX Controllers
+
+HTMX controllers are meant to provide support for the HTMX library. The functions of an HTMX controller should only contain short HTML. Don't use this if you don't want HTMX.
+
+# Middleware
+
+A middleware is used to modify the output of a routed function. A middleware can do a lot of thigs such as:
+
+- Adding components for multiple pages such as navbars or footers.
+- Security (request filtering)
+- Statistics
+- Replacing placeholders
+
+To create a middleware you need to create a class implementing the `IMiddleware` interface.
+```
+interface IMiddleware {
+    public function Output(input:String,params:Array<String>):String;
+}
+```
+
+The `input` parameter is the output of the final function (may have been processed by other middlewares).
+
+The `params` parameter is used for optional params to be supplied to the middleware.
+
+# Authentication/Authorization
+
+The inbuilt auth library uses 
