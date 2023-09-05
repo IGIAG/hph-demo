@@ -7,12 +7,8 @@ class About {
     public static function Index():String{
         return '
         <div id="codepage">
-        <h2>Trochę o tej stronie</h2>
-
-        Ta strona nie została napisana w PHP. A jednak, działa na serwerze obsługującym tylko PHP. Jak to osiągnąłem?</br>
-
-        Dzięki językowi <a href="https://haxe.org">HAXE</a> mogę pisać szybki i bezpieczny kod który dalej jest kompilowany(zamieniany) do PHP.
-
+        <h2>About HPH</h2>
+        HPH is a cool framework. Why? Because I said so.
         </div>
         ';
     }

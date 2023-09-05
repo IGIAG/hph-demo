@@ -3,16 +3,19 @@ import php.Web;
 import AuthLib;
 import LoginComponent;
 
-class Portfolio {
+class Demo {
     public static function Index():String{
         return '
         <div id="codepage">
-        <h2>Moje portfolio</h2>
-
+        <h2>Demo:</h2>
+        <h3>Dynamic content (Pages):</h3>
         <ul>
-        <li>MindPro - Strona główna gabinetu psychologicznego.</li>
-        <li>AiLuvU - Strona główna aplikacji randkowej AI ORAZ cała aplikacja AiLuvU</li>
-        <li>Mój Github</li>
+        <li>Server time: ${Date.now().getHours()}:${Date.now().getMinutes()}:${Date.now().getSeconds()}</li>
+        <li>Your IP:${Web.getClientIP()}</li>
+        </ul>
+        <h3>Middleware example (Default variables middleware)</h3>
+        <ul>
+        <li>Time variable: @&time</li>
         </ul>
 
         </div>

@@ -1,1 +1,1 @@
-sudo haxe build.hxml --times
+haxe build.hxml --times

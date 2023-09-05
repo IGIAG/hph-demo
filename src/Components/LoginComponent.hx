@@ -6,7 +6,7 @@ class LoginComponent {
         if(AuthLib.CheckAuthAuto("user").isSuccess){
             return '<div class="loginComponent">
             
-            <h1>Jesteś już zalogowany lol</h1>
+            <h1>You are already logged in!</h1>
             
             </div>
             ';

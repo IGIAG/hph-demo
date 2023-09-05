@@ -1,7 +1,7 @@
 class VariablesMiddleware implements IMiddleware {
-    private static var Variables:Map<String,String> = []; //Name:Value
+    private var Variables:Map<String,String> = []; //Name:Value
 
-    public static function AddVariable(name:String,value:String):Void {
+    public function AddVariable(name:String,value:String):Void {
         Variables.set(name,value);
     }
 
@@ -12,7 +12,7 @@ class VariablesMiddleware implements IMiddleware {
         return input;
     }
 
-    private static function replacePlaceholders(input: String, values: Map<String, String>): String {
+    private function replacePlaceholders(input: String, values: Map<String, String>): String {
         for (key in values.keys()) {
             
             var placeholder = "@&" + key;

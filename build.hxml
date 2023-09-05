@@ -10,10 +10,10 @@
 --library hxneko-redis
 --library uuid
 
---php /var/www/html 
+--php ./build
 
 
 
 --main Main
 
---cmd cp -R ./wwwroot /var/www/html/
+--cmd cp -R ./wwwroot ./build/wwwroot

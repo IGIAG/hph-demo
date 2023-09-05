@@ -9,8 +9,17 @@ class Main {
 
     var router:Router = new Router();
 
+    var variablesMiddleware:VariablesMiddleware = new VariablesMiddleware();
 
+    var structureMiddleware:StructureMiddleware = new StructureMiddleware();
 
+    var statisticsMiddleware:StatisticsMiddleware = new StatisticsMiddleware();
+
+    //Mapping variables
+
+    variablesMiddleware.AddVariable("time","The string @&time will always be replaced with this explaining string.");
+
+    
     //Adding the static files
     router.mapStaticFiles();
 
@@ -18,7 +27,7 @@ class Main {
 
     router.addRoute("/dr/hi",function():String{
       return "Hi!";
-    },"user",[new StructureMiddleware()]);
+    },"user",[structureMiddleware]);
 
     router.addRoute("/api/create-user",AuthController.CreateUser,"default",[]);
 
@@ -32,9 +41,9 @@ class Main {
     
 
     //Adding the ssr pages
-    router.addRoute("/",IndexPage.Index,"default",[new StructureMiddleware()]);
-    router.addRoute("/about",About.Index,"default",[new StructureMiddleware(),new VariablesMiddleware()]);
-    router.addRoute("/portfolio",Portfolio.Index,"default",[new StructureMiddleware()]);
+    router.addRoute("/",IndexPage.Index,"default",[structureMiddleware,statisticsMiddleware]);
+    router.addRoute("/about",About.Index,"default",[structureMiddleware,variablesMiddleware]);
+    router.addRoute("/demo",Demo.Index,"default",[structureMiddleware,variablesMiddleware]);
 
     //Adding the dynamicly loadable components
 
